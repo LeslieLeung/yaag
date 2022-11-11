@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"yaag/internal/swagger"
 	"yaag/internal/yaag"
 )
 
@@ -28,7 +29,10 @@ func main() {
 	}
 	yaag.GetConfig()
 	mergeOptions()
-	yaag.RunSwag()
+	if !upload {
+		yaag.RunSwag()
+		swagger.Convert(docDir)
+	}
 	resp := yaag.UpdateYapi(docDir, mergeMode)
 	fmt.Println(resp)
 }
