@@ -22,7 +22,8 @@ func GetConfig() {
 		var input string
 		fmt.Scanln(&input)
 		if input != "y" {
-			return
+			fmt.Println("cannot continue without yaag.yaml")
+			os.Exit(1)
 		}
 		InitConfig()
 	}

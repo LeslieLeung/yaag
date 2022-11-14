@@ -38,13 +38,13 @@ func main() {
 }
 
 func mergeOptions() {
-	if docDir == "" {
+	if docDir == "" && yaag.YaagConfig != nil {
 		docDir = yaag.YaagConfig.DocDir
 	}
 	if docDir == "" {
 		docDir = "./docs/swagger.json"
 	}
-	if mergeMode == "" {
+	if mergeMode == "" && yaag.YaagConfig != nil {
 		mergeMode = yaag.YaagConfig.MergeMode
 	}
 	if mergeMode == "" {

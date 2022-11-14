@@ -2,10 +2,12 @@ package yaag
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	url2 "net/url"
 	"os"
+	"time"
 )
 
 const (
@@ -44,8 +46,12 @@ func UpdateYapi(docDir, mergeMode string) string {
 		"token": {YaagConfig.YapiToken},
 	}
 	client := &http.Client{}
+	client.Timeout = 3 * time.Second
 	resp, err := client.PostForm(url, req)
 	if err != nil {
+		if os.IsTimeout(err) {
+			return err.Error()
+		}
 		panic(err)
 	}
 	defer resp.Body.Close()
@@ -56,6 +62,7 @@ func UpdateYapi(docDir, mergeMode string) string {
 	var ret ImportDataResponse
 	err = json.Unmarshal(body, &ret)
 	if err != nil {
+		fmt.Println(string(body))
 		panic(err)
 	}
 	return ret.Errmsg
