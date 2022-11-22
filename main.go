@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"yaag/internal/swagger"
-	"yaag/internal/yaag"
+	"github.com/leslieleung/yaag/internal/swagger"
+	"github.com/leslieleung/yaag/internal/yaag"
 )
 
 var (
