@@ -22,6 +22,9 @@ func Convert(docDir string) {
 	for _, path := range doc.Paths {
 		for _, op := range path.Operations() {
 			for _, resp := range op.Responses {
+				if resp.Schema == nil || resp.Schema.Value == nil || resp.Schema.Value.AllOf == nil {
+					continue
+				}
 				ref := resp.Schema.Value.AllOf[0].Ref
 				refCnt[ref]++
 				resp.Schema.Value.AllOf[0].Ref = ref + strconv.Itoa(refCnt[ref])
