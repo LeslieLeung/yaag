@@ -46,7 +46,7 @@ func UpdateYapi(docDir, mergeMode string) string {
 		"token": {YaagConfig.YapiToken},
 	}
 	client := &http.Client{}
-	client.Timeout = 3 * time.Second
+	client.Timeout = 5 * time.Second
 	resp, err := client.PostForm(url, req)
 	if err != nil {
 		if os.IsTimeout(err) {
