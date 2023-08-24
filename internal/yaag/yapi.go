@@ -36,7 +36,7 @@ func readSwaggerJson(docDir string) string {
 	return string(jsonStr)
 }
 
-func UpdateYapi(docDir, mergeMode string) string {
+func UpdateYapi(docDir, mergeMode string, timeout int) string {
 	url := YaagConfig.YapiUrl + YapiImportData
 	jsonStr := readSwaggerJson(docDir)
 	req := url2.Values{
@@ -46,7 +46,7 @@ func UpdateYapi(docDir, mergeMode string) string {
 		"token": {YaagConfig.YapiToken},
 	}
 	client := &http.Client{}
-	client.Timeout = 5 * time.Second
+	client.Timeout = time.Duration(timeout) * time.Second
 	resp, err := client.PostForm(url, req)
 	if err != nil {
 		if os.IsTimeout(err) {

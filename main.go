@@ -12,6 +12,7 @@ var (
 	mergeMode string
 	isInit    bool
 	upload    bool
+	timeout   int
 )
 
 func init() {
@@ -19,6 +20,7 @@ func init() {
 	flag.StringVar(&mergeMode, "mergeMode", "", "merge mode")
 	flag.BoolVar(&isInit, "init", false, "init")
 	flag.BoolVar(&upload, "upload", false, "upload only, no swag generate")
+	flag.IntVar(&timeout, "timeout", 10, "timeout in seconds")
 	flag.Parse()
 }
 
@@ -33,7 +35,7 @@ func main() {
 		yaag.RunSwag()
 		swagger.Convert(docDir)
 	}
-	resp := yaag.UpdateYapi(docDir, mergeMode)
+	resp := yaag.UpdateYapi(docDir, mergeMode, timeout)
 	fmt.Println(resp)
 }
 
